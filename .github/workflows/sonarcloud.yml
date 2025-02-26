@@ -1,10 +1,8 @@
 name: SonarCloud Workflow
+
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened]  # Runs only on PRs
 
 jobs:
   sonarqube:
