@@ -23,6 +23,6 @@ jobs:
 
       - name: Compile Java
         run: |
-          cd minicase/HolidayTravelVehicles
+          cd $WORK_DIR
           find . -name "*.java" > sources.txt
           javac -d . @sources.txt
