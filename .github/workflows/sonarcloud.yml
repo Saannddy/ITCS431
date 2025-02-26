@@ -5,6 +5,7 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   sonarqube:
     name: SonarQube
@@ -12,7 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0  # Ensure full history for Sonar analysis
+
+      - name: Debug - Check Secrets
+        run: |
+          if [[ -z "${{ secrets.SONAR_TOKEN }}" ]]; then
+            echo "ERROR: SONAR_TOKEN is missing!"
+            exit 1
+          else
+            echo "SONAR_TOKEN is set."
+          fi
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
